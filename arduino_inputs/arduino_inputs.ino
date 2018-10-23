@@ -1,30 +1,65 @@
-const int buttonUp = 2;
-const int buttonDown = 3;
-const int buttonLeft = 4;
-const int buttonRight = 5;
-const int buttonPin = 6;
-const int ledPin = 13;
+#define KEY_UP 38
+#define KEY_DOWN 40
+#define KEY_RIGHT 39
+#define KEY_LEFT 37
 
-// variables will change:
-int buttonState = 0;         // variable for reading the pushbutton status
+#define PIN_UP 2
+#define PIN_DOWN 3
+#define PIN_RIGHT 4
+#define PIN_LEFT 5
+
+uint8_t buf[8] = { 0 }; 
+
+int state = HIGH;
 
 void setup() {
-  // initialize the LED pin as an output:
-  pinMode(ledPin, OUTPUT);
-  // initialize the pushbutton pin as an input:
-  pinMode(buttonPin, INPUT);
+  Serial.begin(9600);
+  pinMode(PIN_UP, INPUT);
+  pinMode(PIN_DOWN, INPUT);
+  pinMode(PIN_RIGHT, INPUT);
+  pinMode(PIN_LEFT, INPUT);
+
+  digitalWrite(PIN_UP, HIGH);
+  digitalWrite(PIN_DOWN, HIGH);
+  digitalWrite(PIN_RIGHT, HIGH);
+  digitalWrite(PIN_LEFT, HIGH);
+
+  delay(200);
+}
+void loop() 
+{
+  state = digitalRead(PIN_UP);
+  if (state != 1) {
+    buf[2] = KEY_UP;    // Up key
+    Serial.write(buf, 8); 
+    releaseKey();
+  } 
+
+  state = digitalRead(PIN_DOWN);
+  if (state != 1) {
+    buf[2] = KEY_DOWN;   // Down key
+    Serial.write(buf, 8); 
+    releaseKey();
+  } 
+
+  state = digitalRead(PIN_RIGHT);
+  if (state != 1) {
+    buf[2] = KEY_RIGHT;   // Right key
+    Serial.write(buf, 8); 
+    releaseKey();
+  } 
+  
+  state = digitalRead(PIN_LEFT);
+  if (state != 1) {
+    buf[2] = KEY_LEFT;   // Left key
+    Serial.write(buf, 8); 
+    releaseKey();
+  } 
 }
 
-void loop() {
-  // read the state of the pushbutton value:
-  buttonState = digitalRead(buttonPin);
-
-  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
-  if (buttonState == HIGH) {
-    // turn LED on:
-    digitalWrite(ledPin, HIGH);
-  } else {
-    // turn LED off:
-    digitalWrite(ledPin, LOW);
-  }
+void releaseKey() 
+{
+  buf[0] = 0;
+  buf[2] = 0;
+  Serial.write(buf, 8); // Release key  
 }
