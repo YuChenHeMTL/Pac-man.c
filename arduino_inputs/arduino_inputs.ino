@@ -14,9 +14,9 @@
 #define KEY_D 7
 #define KEY_A 4
 
-#define PIN_UP 2
+#define PIN_UP 4
 #define PIN_DOWN 3
-#define PIN_RIGHT 4
+#define PIN_RIGHT 2
 #define PIN_LEFT 5
 
 uint8_t buf[8] = { 0 }; 
@@ -43,6 +43,7 @@ void loop()
   state = digitalRead(PIN_UP);
   if (state != 1) {
     buf[2] = KEY_W;    // Up key
+    delay(150);
     Serial.write(buf, 8); 
     releaseKey();
   } 
@@ -50,6 +51,7 @@ void loop()
   state = digitalRead(PIN_DOWN);
   if (state != 1) {
     buf[2] = KEY_S;  //  Down key
+    delay(150);
     Serial.write(buf, 8); 
     releaseKey();
   } 
@@ -57,6 +59,7 @@ void loop()
   state = digitalRead(PIN_RIGHT);
   if (state != 1) {
     buf[2] = KEY_D; //   Right key
+    delay(150);
     Serial.write(buf, 8); 
     releaseKey();
   } 
@@ -64,6 +67,7 @@ void loop()
   state = digitalRead(PIN_LEFT);
   if (state != 1) {
     buf[2] = KEY_A;  //  Left key
+    delay(150);
     Serial.write(buf, 8); 
     releaseKey();
   } 
