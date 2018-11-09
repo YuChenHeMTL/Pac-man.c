@@ -15,9 +15,14 @@
 #define KEY_A 4
 #define KEY_JUMP 32
 
-#define PIN_UP 4
-#define PIN_DOWN 3
-#define PIN_RIGHT 2
+#define KEY_UP 38
+#define KEY_DOWN 40
+#define KEY_LEFT 37
+#define KEY_RIGHT 39
+
+#define PIN_UP 3
+#define PIN_DOWN 2
+#define PIN_RIGHT 4
 #define PIN_LEFT 5
 
 #include <Keyboard.h>
