@@ -13,5 +13,5 @@ To get started, you simply need to clone the repo and run the file SE_Whole_Pacm
 
 ## Authors
 
-* **Yu Chen He** - *Deployment of Arduino* - [PurpleBooth](https://git.uwaterloo.ca/yc4he)
-* **Jason Li** - *Coding of the Pacman Game* - [PurpleBooth](https://git.uwaterloo.ca/j989li)
+* **Yu Chen He** - *Deployment of Arduino* - [GitLab](https://git.uwaterloo.ca/yc4he)
+* **Jason Li** - *Coding of the Pacman Game* - [GitLab](https://git.uwaterloo.ca/j989li)
