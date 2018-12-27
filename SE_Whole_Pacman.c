@@ -11,18 +11,18 @@ typedef struct {
 	int column;
 } position;
 
-void update_screen(char maze[][SIZE_C+1], int rows, int cols, int items) 
+void update_screen(char maze[][SIZE_C+1], int rows, int cols, int items)
 {
   	int i;
 
-	gotoxy(0,0);
-    	clrscr();
-  
+	// gotoxy(0,0);
+  //   	clrscr();
+
 	if (items)
 	{
 		 printf("\nw = move up, s = move down, a = move left, d = move right, q = quit game, items left: %d \n", items);
 	}
-      
+
     	// Draw the maze above.
     	for (i = 0; i < rows; i++)
     	{
@@ -99,7 +99,7 @@ void ghost_min_col (position *ghost, int* changef, int* deathf, int* itemf, char
 			{
 				*itemf = 0;
 			}
-				
+
 			arr[ghost->row][ghost->column - 2] = '&';
 			ghost->column -= 2;
 			*changef = 1;
@@ -113,7 +113,7 @@ void ghost_add_row (position *ghost, int* changef, int* deathf, int* itemf, char
 	{
 		if ( ( (ghost->row + 1 ) > SIZE_R ) || (arr[ghost->row + 1][ghost->column] == '*') || (arr[ghost->row + 1][ghost->column] == '&'))
 		{
-			// *movable = -1;				
+			// *movable = -1;
 		}
 		else
 		{
@@ -174,7 +174,7 @@ void ghost_min_row (position *ghost, int* changef, int* deathf, int* itemf, char
 			{
 				*itemf = 0;
 			}
-				
+
 			arr[ghost->row - 1][ghost->column] = '&';
 			ghost->row -= 1;
 			*changef = 1;
@@ -186,7 +186,7 @@ int main()
 {
 	printf("WELCOME TO PACMAN! \n");
 	printf("Short Guide: '@' is PACMAN, '^' is your objectives, and '&' are the ghosts! \n");
-    
+
 	//    #if 0
 	// Game start
 	while(1)
@@ -250,24 +250,24 @@ int main()
 
 	    	// Total amount of "^" that has to be collected.
 	    	items = ITEM_TOTAL;
- 
+
 		printf("Press any key to start... \n");
 		getch();	// wait for user to press a key.
 
-		for(i=0;i<SIZE_R;i++) 
+		for(i=0;i<SIZE_R;i++)
 		{
             			maze[i][SIZE_C] = '\0';
-              
+
             			// printf("%s\n",maze[i]);
           	  	}
-                
+
             		update_screen(maze,SIZE_R,SIZE_C,items);
 
 		#if 0
        		printf("\n");
 
         		// print instructions
-        		printf("w = move up, s = move down, a = move left, d = move right, q = quit game, items left: %d \n", items);
+        		printf("items left: %d \n", items);
 
     		// Draw the maze above.
     		for (i = 0; i < SIZE_R; i++)
@@ -279,7 +279,7 @@ int main()
     			printf("\n");
     		}
 		#endif
-		
+
     		// Get user initial position.
     		player.row = 7;
     		player.column = 36;
@@ -305,11 +305,11 @@ int main()
 	    			user_input = getch();	// record the user input.
 		    	}
 	    		else
-    			{	
+    			{
     				printf("bug detected\n");
     				return -1;	// -1 is error in input.
 	    		}
-    
+
     			// Respond to user's input; player moves by wasd.
     			// If the location where the user wants to move is a wall, then do nothing and clean user_input.
     			// If there is a '*' in the location, erase the '*' and replace it with "@". The variable "item" will -1.
@@ -348,7 +348,7 @@ int main()
 						}
     			    		}
     					break;
-				
+
     				case 'd' :
     					// move right if possible..
 		    			if( maze[player.row][player.column + 1] == '*' || ( (player.column + 2 ) > SIZE_C ) || maze[player.row][player.column + 2] == '*')
@@ -376,7 +376,7 @@ int main()
 						}
     			    		}
     					break;
-				
+
     				case 'w' :
     					// move up if possible..
     					if( ( (player.row - 1 ) < 0 ) || maze[player.row - 1][player.column] == '*')
@@ -405,7 +405,7 @@ int main()
 						}
     			    		}
     					break;
-    				
+
     				case 's' :
         					// move down if possible..
 	    				if( ( (player.row + 1 ) > SIZE_R ) || maze[player.row + 1][player.column] == '*')
@@ -435,31 +435,32 @@ int main()
 
     			    		}
     						break;
-				
+
     				case 'q' :
     			    		// quit game?
-	    		    		printf("Are you sure you want to quit the game? y/n \n");
+	    		    		printf("Are you sure you want to quit the game? \n");
+									printf("<- to quit, -> to play again \n");
     			    		while(1)
 		    	    		{
 		    	        			user_input = getch();
-		    	        			if(user_input == 'y')
+		    	        			if(user_input == 'a')
 	    		       			{
 	    		            		printf("See you!\n");
 	    		            		return 0;
 	    		        			}
-	    		        			if(user_input == 'n')
+	    		        			if(user_input == 'd')
 	    		        			{
 		    	            			printf("Game Continue! \n");
 		    	            			break;
 		    	        			}
 	    		    		}
 	    		    		break;
-	       		    
+
 	    		default :
     			    	print_flag = -1; // the map will not print because no valid key is pressed.
     				break;	// nothing else happens because it could be user randomly pressed a key.
     		}
-		
+
 /*		if(death_flag)
 		{
 			printf("You hit a ghost!\n");
@@ -496,21 +497,21 @@ int main()
 				{
 					ghost_add_col (&ghost_1, &change_flag, &death_flag, &item_flag1, maze);
 				}
-				
+
 				if ((ghost_1.column - player.column) > 0)
 				{
 					ghost_min_col (&ghost_1, &change_flag, &death_flag, &item_flag1,  maze);
-				}	
+				}
 
 				if ((ghost_1.row - player.row) < 0)
 				{
 					ghost_add_row (&ghost_1, &change_flag, &death_flag, &item_flag1, maze);
 				}
-				
+
 				if ((ghost_1.row - player.row) > 0)
 				{
 					ghost_min_row (&ghost_1, &change_flag, &death_flag, &item_flag1, maze);
-				}	
+				}
 			}
 			if (!change_flag)
 			{
@@ -557,22 +558,22 @@ int main()
 				{
 					ghost_add_row (&ghost_2, &change_flag, &death_flag, &item_flag2, maze);
 				}
-				
+
 				if ((ghost_2.row - player.row) > 0)
 				{
 					ghost_min_row (&ghost_2, &change_flag, &death_flag, &item_flag2, maze);
 				}
-				
+
 				if ((ghost_2.column - player.column) < 0)
 				{
 					ghost_add_col (&ghost_2, &change_flag, &death_flag, &item_flag2, maze);
 				}
-				
+
 				if ((ghost_2.column - player.column) > 0)
 				{
 					ghost_min_col (&ghost_2, &change_flag, &death_flag, &item_flag2,  maze);
-				}	
-	
+				}
+
 			}
 			if (!change_flag)
 			{
@@ -609,7 +610,7 @@ int main()
 
 			if (temp > 3)
 			{
-				
+
 				if ((ghost_3.row - player.row) > 0)
 				{
 					ghost_min_row (&ghost_3, &change_flag, &death_flag, &item_flag3, maze);
@@ -619,7 +620,7 @@ int main()
 				{
 					ghost_add_row (&ghost_3, &change_flag, &death_flag, &item_flag3, maze);
 				}
-				
+
 				if ((ghost_3.column - player.column) > 0)
 				{
 					ghost_min_col (&ghost_3, &change_flag, &death_flag, &item_flag3,  maze);
@@ -628,7 +629,7 @@ int main()
 				if ((ghost_3.column - player.column) < 0)
 				{
 					ghost_add_col (&ghost_3, &change_flag, &death_flag, &item_flag3, maze);
-				}	
+				}
 			}
 			if (!change_flag)
 			{
@@ -674,7 +675,7 @@ int main()
 				{
 					ghost_add_col (&ghost_4, &change_flag, &death_flag, &item_flag4, maze);
 				}
-				
+
 				if ((ghost_4.row - player.row) > 0)
 				{
 					ghost_min_row (&ghost_4, &change_flag, &death_flag, &item_flag4, maze);
@@ -683,7 +684,7 @@ int main()
 				if ((ghost_4.row - player.row) < 0)
 				{
 					ghost_add_row (&ghost_4, &change_flag, &death_flag, &item_flag4, maze);
-				}	
+				}
 			}
 			if (!change_flag)
 			{
@@ -727,13 +728,13 @@ int main()
 	    	{
 	    		break;
 	    	}
-		
+
             //  printf("items left?: %d\n", items);
-		
+
 	    	user_input = 0;	// clean the input.
 	    	print_flag = 0;	// reset flag.
     	}
-	
+
 
 	if(!death_flag)
 	{
@@ -743,23 +744,24 @@ int main()
 	{
 		printf("Aw... You Lose!\n");	// losing message.
 	}
-    	
+
     	printf("Press any key to proceed...\n");
-	
+
     	getch();
 
-    	printf("Do you want to play again? y/n \n");
+    	printf("Do you want to play again?\n");
+			printf("<- to quit, -> to play again.");
     	while(1)
     	{
     	    	user_input = getch();
-    		if(user_input == 'y')
+    		if(user_input == 'd')
     		{
     		   	printf("\n");
     			printf("\n");
     			printf("\n");
 	            	break;
     		}
-    		if(user_input == 'n')
+    		if(user_input == 'a')
     	    	{
     		   	printf("Press any key to exit...\n");
     	       		getch();
@@ -768,9 +770,9 @@ int main()
     	}
 }
 
-	
-			    
+
+
 //	#endif
-	
+
 	return 0;
 }

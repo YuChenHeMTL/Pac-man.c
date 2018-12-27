@@ -15,11 +15,6 @@
 #define KEY_A 4
 #define KEY_JUMP 32
 
-#define KEY_UP 38
-#define KEY_DOWN 40
-#define KEY_LEFT 37
-#define KEY_RIGHT 39
-
 #define PIN_UP 3
 #define PIN_DOWN 2
 #define PIN_RIGHT 4
@@ -52,7 +47,7 @@ void loop()
   if (state != 1) {
 //    buf[2] = KEY_JUMP;    // Space key
     buf[2] = KEY_W; // W Key
-    delay(125);
+    delay(150);
     Serial.write(buf, 8); 
     releaseKey();
   }
@@ -60,7 +55,7 @@ void loop()
   state = digitalRead(PIN_DOWN);
   if (state != 1) {
     buf[2] = KEY_S;  //  S key
-    delay(125);
+    delay(150);
     Serial.write(buf, 8); 
     releaseKey();
   } 
@@ -68,7 +63,7 @@ void loop()
   state = digitalRead(PIN_RIGHT);
   if (state != 1) {
     buf[2] = KEY_D; //   A key
-    delay(125);
+    delay(150);
     Serial.write(buf, 8); 
     releaseKey();
   } 
@@ -76,7 +71,7 @@ void loop()
   state = digitalRead(PIN_LEFT);
   if (state != 1) {
     buf[2] = KEY_A;  //  D key
-    delay(125);
+    delay(150);
     Serial.write(buf, 8); 
     releaseKey();
   } 
